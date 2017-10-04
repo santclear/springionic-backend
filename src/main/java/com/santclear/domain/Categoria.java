@@ -2,14 +2,22 @@ package com.santclear.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 //	Serializable é um interface que indica que os objetos da classe poderam ser convertidos para uma sequência de bytes.
 // Desse modo, é possível que os objetos possam ser gravados em arquivo, trafegar em rede, etc.
 // 	Toda classe Serializable necessita de um número de versão, se a classe for recém criada é coerente que o valor do número de versão seja 1.
 // Nesse caso: serialVersionUID = 1L
+@Entity
 public class Categoria implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	
