@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 //	Serializable é um interface que indica que os objetos da classe poderam ser convertidos para uma sequência de bytes.
 // Desse modo, é possível que os objetos possam ser gravados em arquivo, trafegar em rede, etc.
 // 	Toda classe Serializable necessita de um número de versão, se a classe for recém criada é coerente que o valor do número de versão seja 1.
@@ -24,6 +26,10 @@ public class Categoria implements Serializable {
 	private Integer id;
 	private String nome;
 	
+	/*	Olhar atributo categorias em Produto 
+	 * @JsonManagedReference bloqueia o problema de referência cíclica e define que os objetos associados serão carregados nessa classe
+	 * */
+	@JsonManagedReference
 	@ManyToMany(mappedBy="categorias")
 	private List<Produto> produtos = new ArrayList<>();
 	
