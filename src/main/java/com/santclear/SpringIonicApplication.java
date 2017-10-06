@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.santclear.domain.Categoria;
 import com.santclear.domain.Cidade;
+import com.santclear.domain.Cliente;
+import com.santclear.domain.Endereco;
 import com.santclear.domain.Estado;
 import com.santclear.domain.Produto;
+import com.santclear.domain.enums.TipoCliente;
 import com.santclear.repositories.CategoriaRepository;
 import com.santclear.repositories.CidadeRepository;
+import com.santclear.repositories.ClienteRepository;
+import com.santclear.repositories.EnderecoRepository;
 import com.santclear.repositories.EstadoRepository;
 import com.santclear.repositories.ProdutoRepository;
 
@@ -27,6 +32,10 @@ public class SpringIonicApplication implements CommandLineRunner {
 	private EstadoRepository estadoRepository;
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringIonicApplication.class, args);
@@ -64,5 +73,16 @@ public class SpringIonicApplication implements CommandLineRunner {
 		
 		estadoRepository.save(Arrays.asList(est1, est2));
 		cidadeRepository.save(Arrays.asList(c1, c2, c3));
+		
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("27363323","93838993"));
+		
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
+		clienteRepository.save(Arrays.asList(cli1));
+		enderecoRepository.save(Arrays.asList(e1, e2));
 	}
 }
