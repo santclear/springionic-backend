@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.santclear</groupId>
-	<artifactId>springionic</artifactId>
+	<artifactId>springionic-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>springionic</name>
+	<name>springionic-backend</name>
 	<description>Projeto Spring com Ionic</description>
 
 	<parent>

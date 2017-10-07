@@ -32,7 +32,7 @@ import com.santclear.repositories.PedidoRepository;
 import com.santclear.repositories.ProdutoRepository;
 
 @SpringBootApplication
-public class SpringIonicApplication implements CommandLineRunner {
+public class SpringIonicBackendApplication implements CommandLineRunner {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
@@ -54,7 +54,7 @@ public class SpringIonicApplication implements CommandLineRunner {
 	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
-		SpringApplication.run(SpringIonicApplication.class, args);
+		SpringApplication.run(SpringIonicBackendApplication.class, args);
 	}
 
 	@Override
