@@ -15,7 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -29,11 +28,7 @@ public class Produto implements Serializable {
 	private String nome;
 	private Double preco;
 	
-	/*	Olhar atributo produtos em Categoria 
-	 * @JsonBackReference bloqueia o problema de referência cíclica e define que os objetos associados estão sendo carregados a partir da classe
-	 * Categoria 
-	 * */
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name="PRODUTO_CATEGORIA",
 		joinColumns = @JoinColumn(name="produto_id"),
