@@ -13,6 +13,7 @@ import com.santclear.domain.Cidade;
 import com.santclear.domain.Cliente;
 import com.santclear.domain.Endereco;
 import com.santclear.domain.Estado;
+import com.santclear.domain.ItemPedido;
 import com.santclear.domain.Pagamento;
 import com.santclear.domain.PagamentoComBoleto;
 import com.santclear.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.santclear.repositories.CidadeRepository;
 import com.santclear.repositories.ClienteRepository;
 import com.santclear.repositories.EnderecoRepository;
 import com.santclear.repositories.EstadoRepository;
+import com.santclear.repositories.ItemPedidoRepository;
 import com.santclear.repositories.PagamentoRepository;
 import com.santclear.repositories.PedidoRepository;
 import com.santclear.repositories.ProdutoRepository;
@@ -48,6 +50,8 @@ public class SpringIonicApplication implements CommandLineRunner {
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringIonicApplication.class, args);
@@ -112,5 +116,18 @@ public class SpringIonicApplication implements CommandLineRunner {
 		pedidoRepository.save(Arrays.asList(ped1, ped2));
 		
 		pagamentoRepository.save(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.save(Arrays.asList(ip1, ip2, ip3));
 	}
 }
