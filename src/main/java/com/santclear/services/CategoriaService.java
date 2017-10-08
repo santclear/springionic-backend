@@ -1,10 +1,12 @@
 package com.santclear.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.santclear.domain.Categoria;
 import com.santclear.repositories.CategoriaRepository;
+import com.santclear.services.exceptions.DataIntegrityException;
 import com.santclear.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -30,5 +32,14 @@ public class CategoriaService {
 		find(obj.getId());
 		// O método save do Spring Data realiza operações de save e update. Se o id for nulo ele salva e se não for atualiza.
 		return repo.save(obj);
+	}
+	
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.delete(id);
+		} catch(DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+		}
 	}
 }
