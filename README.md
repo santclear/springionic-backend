@@ -1,4 +1,4 @@
-# LEIAME #
+# About #
 
 This repository is based on the "Spring Boot com Ionic - Estudo de caso completo" course of Udemy
 
