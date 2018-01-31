@@ -30,6 +30,11 @@ public class ItemPedido implements Serializable {
 		this.quantidade = quantidade;
 		this.preco = preco;
 	}
+	
+	public double getSubTotal() {
+		return (preco - desconto) * quantidade;
+	}
+	
 	// No JPA tudo que começa com get é serializado. getPedido não deve ser serializado, segundo o modelo estabelecido
 	@JsonIgnore
 	public Pedido getPedido() {
