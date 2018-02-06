@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.santclear.services.DBService;
+import com.santclear.services.EmailService;
+import com.santclear.services.MockEmailService;
 
 @Configuration
 @Profile("test")
@@ -20,5 +22,11 @@ public class TestConfig {
 	public boolean instantiateDatabase() throws ParseException {
 		dbService.instantiateTestDatabase();
 		return true;
+	}
+	
+	// @Bean faz com que o método esteja disponível no sistema como componente
+	@Bean
+	public EmailService emailService() {
+		return new MockEmailService();
 	}
 }
