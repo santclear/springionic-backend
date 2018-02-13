@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.santclear.security.JWTAuthenticationFilter;
+import com.santclear.security.JWTAuthorizationFilter;
 import com.santclear.security.JWTUtil;
 
 @Configuration
@@ -65,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest().authenticated();
 		// Ativa o filtro criado em com.santclear.security.JWTAuthenticationFilter
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));//FIXME JWT, passo 8
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);/* assegura que o backend não armazenará sessão */
 	}
 	
