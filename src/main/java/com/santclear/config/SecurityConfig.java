@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -23,7 +24,10 @@ import com.santclear.security.JWTAuthorizationFilter;
 import com.santclear.security.JWTUtil;
 
 @Configuration
-@EnableWebSecurity	
+@EnableWebSecurity
+// Habilita configuração de autorização para perfis específicos no endpoints.
+// Exemplo: @PreAuthorize("hasAnyRole('ADMIN')")
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	//FIXME JWT, passo 3
@@ -44,7 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String[] PUBLIC_MATCHERS_GET = {
 			"/produtos/**",
-			"/categorias/**",
+			"/categorias/**"
+	};
+	
+	private static final String[] PUBLIC_MATCHERS_POST = {
 			"/clientes/**"
 	};
 
@@ -61,6 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// csrf() desabilitado, pois o sistema é stateless, não mantém sessão
 		http.cors().and().csrf().disable();
 		http.authorizeRequests()
+			.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
 			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()/* permite somente recuperar os dados (HttpMethod.GET), não podendo inserir, deletar, etc. */
 			.antMatchers(PUBLIC_MATCHERS).permitAll() /* efetiva o item 1 */
 			.anyRequest().authenticated();
