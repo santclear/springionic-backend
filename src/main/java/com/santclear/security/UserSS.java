@@ -74,4 +74,10 @@ public class UserSS implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+	
+	public boolean hasRole(Perfil perfil) {
+		// Converte a descrição de perfil para o tipo aceito pelo Spring Security 
+		// e procura esse perfil na lista de perfis, se existir retorna verdadeiro.
+		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+	}
 }

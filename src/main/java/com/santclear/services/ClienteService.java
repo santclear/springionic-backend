@@ -13,12 +13,15 @@ import org.springframework.stereotype.Service;
 import com.santclear.domain.Cidade;
 import com.santclear.domain.Cliente;
 import com.santclear.domain.Endereco;
+import com.santclear.domain.enums.Perfil;
 import com.santclear.domain.enums.TipoCliente;
 import com.santclear.dto.ClienteDTO;
 import com.santclear.dto.ClienteNewDTO;
 import com.santclear.repositories.CidadeRepository;
 import com.santclear.repositories.ClienteRepository;
 import com.santclear.repositories.EnderecoRepository;
+import com.santclear.security.UserSS;
+import com.santclear.services.exceptions.AuthorizationException;
 import com.santclear.services.exceptions.DataIntegrityException;
 import com.santclear.services.exceptions.ObjectNotFoundException;
 
@@ -27,7 +30,6 @@ public class ClienteService {
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
-	
 	@Autowired
 	private ClienteRepository repo;
 	@Autowired	
@@ -36,6 +38,13 @@ public class ClienteService {
 	private EnderecoRepository enderecoRepository;
 	
 	public Cliente find(Integer id) {
+		UserSS user = UserService.authenticated();
+		// O usuário logado procurar por ele mesmo, a não ser que ele tenha perfil de ADMIN
+		// Se o usuário não estiver logado, ou o perfil não for de ADMIN e não for o id 
+		// passado por parâmetro não for dele mesmo então o acesso será negado
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
 		Cliente obj = repo.findOne(id);
 		if(obj == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado Id: "+ id +", Tipo: "+ Cliente.class.getName());
