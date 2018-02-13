@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.santclear.dto.CredenciaisDTO;
 
+//FIXME JWT, passo 7
 // Interceptador das requisições de login
 // /login é um endpoint reservado pelo Spring Security
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {

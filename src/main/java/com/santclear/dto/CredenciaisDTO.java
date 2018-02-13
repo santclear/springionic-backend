@@ -2,6 +2,7 @@ package com.santclear.dto;
 
 import java.io.Serializable;
 
+//FIXME JWT, passo 4
 public class CredenciaisDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.santclear.domain.enums.Perfil;
 
+//FIXME JWT, passo 1
 public class UserSS implements UserDetails {
 	
 	private static final long serialVersionUID = 1L;

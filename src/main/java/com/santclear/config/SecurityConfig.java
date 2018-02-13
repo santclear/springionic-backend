@@ -25,12 +25,14 @@ import com.santclear.security.JWTUtil;
 @EnableWebSecurity	
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	//FIXME JWT, passo 3
 	@Autowired
 	private UserDetailsService userDetailsService;
 
 	@Autowired
     private Environment env;
 	
+	//FIXME JWT, passo 8
 	@Autowired
 	private JWTUtil jwtUtil;
 	
@@ -62,10 +64,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(PUBLIC_MATCHERS).permitAll() /* efetiva o item 1 */
 			.anyRequest().authenticated();
 		// Ativa o filtro criado em com.santclear.security.JWTAuthenticationFilter
-		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));//FIXME JWT, passo 8
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);/* assegura que o backend não armazenará sessão */
 	}
 	
+	//FIXME JWT, passo 3
 	// Indica para o framework Spring Security quem é o UserDatailsService e quem realiza o encode da senha
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {

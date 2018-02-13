@@ -10,6 +10,7 @@ import com.santclear.domain.Cliente;
 import com.santclear.repositories.ClienteRepository;
 import com.santclear.security.UserSS;
 
+//FIXME JWT, passo 2
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
