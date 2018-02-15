@@ -62,5 +62,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String token = jwtUtil.generateToken(username);
         // Responde, através do cabeçalho da requisição, que a autenticação ocorreu com sucesso
         res.addHeader("Authorization", "Bearer " + token);
+        // Por padrão, o mecanismo de cors não expõe cabeçalhos personalizados (Exemplo: Authorization),
+        // desse modo é necessário expor
+        res.addHeader("access-control-expose-headers", "Authorization");
 	}
 }

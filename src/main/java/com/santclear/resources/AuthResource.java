@@ -33,6 +33,9 @@ public class AuthResource {
 		UserSS user = UserService.authenticated();
 		String token = jwtUtil.generateToken(user.getUsername());
 		response.addHeader("Authorization", "Bearer " + token);
+        // Por padrão, o mecanismo de cors não expõe cabeçalhos personalizados (Exemplo: Authorization),
+        // desse modo é necessário expor
+		response.addHeader("access-control-expose-headers", "Authorization");
 		return ResponseEntity.noContent().build();
 	}
 	
